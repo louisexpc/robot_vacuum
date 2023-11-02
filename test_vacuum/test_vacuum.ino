@@ -12,7 +12,7 @@ void setup() {
   pinMode(motorPin, OUTPUT);
   pinMode(LED,OUTPUT);
 
-  digitalWrite(motorPin, HIGH);
+  digitalWrite(motorPin, LOW);
   digitalWrite(LED, HIGH);
 }
 
