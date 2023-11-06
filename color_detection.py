@@ -74,7 +74,7 @@ if __name__=='__main__':
             start_time = time.time()
            
             #Detection: 
-            if (time.time()-sample_start)>=1:
+            if (time.time()-sample_start)>=3:
                 sample_start=time.time()
                 sample_result=color_detection(frame)        
                 ser.write(sample_result.encode('utf-8'))        #sent result to arduino

@@ -9,7 +9,7 @@ char val;
 
 //Rpi Serial communication setting
 int motorPin = 7;
-int LED=13;
+int LED=13;                            //or buzzer
 bool motorOn = true;
 unsigned long lastActionTime = 0;
 const unsigned long delayTime = 5000;
@@ -22,8 +22,8 @@ void setup() {
   pinMode(motorPin, OUTPUT);
   pinMode(LED,OUTPUT);
 
-  digitalWrite(motorPin, LOW);
-  digitalWrite(LED, HIGH);
+  digitalWrite(motorPin, HIGH);       //HIGH: close , LOW: OPEN
+  digitalWrite(LED, LOW);
 
   //wheel motor setting
   //Blue tooth communication setting
@@ -45,28 +45,14 @@ void loop() {
     data.trim(); // 去除前後空格
 
     if (data == "stop") {
-      digitalWrite(motorPin, HIGH);
-      motorOn = false;
+    
       lastActionTime = millis();
-      // 接收Rpi 辨識結果並閃爍LED 停止 vacuum motor
-      digitalWrite(LED,LOW);
-      delay(100);
+      // 接收Rpi 辨識結果並啟動buzzer
       digitalWrite(LED,HIGH);
-      delay(100);
-
     } else if (data == "active") {
-      digitalWrite(motorPin, LOW);
-      digitalWrite(LED,HIGH);
+      digitalWrite(LED,LOW);
       motorOn = true;
     }
-  }
-
-  // 檢查是否需要恢復動作
-  if (!motorOn && ((millis() - lastActionTime )>= delayTime)) {
-
-    digitalWrite(motorPin, LOW);
-    digitalWrite(LED,HIGH);
-    motorOn = true;
   }
   
   // 車子馬達藍芽控制
@@ -96,28 +82,28 @@ void loop() {
 }
 
 void forward(){
-  analogWrite(motorLeft, 100);
+  analogWrite(motorLeft, 200);
   analogWrite(motorLeft2,0);
   analogWrite(motorRight, 0);
-  analogWrite(motorRight2,100);
+  analogWrite(motorRight2,200);
 }
 void backward(){
   analogWrite(motorLeft, 0);
-  analogWrite(motorLeft2,100);
-  analogWrite(motorRight, 100);
-  analogWrite(motorRight2,0);
-}
-void left(){
-  analogWrite(motorLeft, 100);
-  analogWrite(motorLeft2,0);
-  analogWrite(motorRight, 0);
+  analogWrite(motorLeft2,200);
+  analogWrite(motorRight, 200);
   analogWrite(motorRight2,0);
 }
 void right(){
+  analogWrite(motorLeft, 150);
+  analogWrite(motorLeft2,0);
+  analogWrite(motorRight, 0);
+  analogWrite(motorRight2,0);
+}
+void left(){
   analogWrite(motorLeft, 0);
   analogWrite(motorLeft2,0);
   analogWrite(motorRight, 0);
-  analogWrite(motorRight2,100);
+  analogWrite(motorRight2,150);
 }
 void stop(){
   analogWrite(motorLeft, 0);
