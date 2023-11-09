@@ -9,7 +9,7 @@ char val;
 
 //Rpi Serial communication setting
 int motorPin = 7;
-int LED=13;                            //or buzzer
+int LED=2;                            //or buzzer
 bool motorOn = true;
 unsigned long lastActionTime = 0;
 const unsigned long delayTime = 5000;
@@ -49,6 +49,7 @@ void loop() {
       lastActionTime = millis();
       // 接收Rpi 辨識結果並啟動buzzer
       digitalWrite(LED,HIGH);
+      delayTime(2000);
     } else if (data == "active") {
       digitalWrite(LED,LOW);
       motorOn = true;
@@ -81,27 +82,27 @@ void loop() {
   }
 }
 
-void forward(){
-  analogWrite(motorLeft, 200);
-  analogWrite(motorLeft2,0);
-  analogWrite(motorRight, 0);
-  analogWrite(motorRight2,200);
-}
 void backward(){
-  analogWrite(motorLeft, 0);
-  analogWrite(motorLeft2,200);
-  analogWrite(motorRight, 200);
-  analogWrite(motorRight2,0);
-}
-void right(){
-  analogWrite(motorLeft, 150);
+  analogWrite(motorLeft, 220);
   analogWrite(motorLeft2,0);
   analogWrite(motorRight, 0);
+  analogWrite(motorRight2,220);
+}
+void forward(){
+  analogWrite(motorLeft, 0);
+  analogWrite(motorLeft2,220);
+  analogWrite(motorRight, 220);
   analogWrite(motorRight2,0);
 }
 void left(){
-  analogWrite(motorLeft, 0);
+  analogWrite(motorLeft, 150);
   analogWrite(motorLeft2,0);
+  analogWrite(motorRight, 150);
+  analogWrite(motorRight2,0);
+}
+void right(){
+  analogWrite(motorLeft, 0);
+  analogWrite(motorLeft2,150);
   analogWrite(motorRight, 0);
   analogWrite(motorRight2,150);
 }

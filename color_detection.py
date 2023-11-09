@@ -68,15 +68,13 @@ if __name__=='__main__':
         sample_start = time.time()
         while 1:
             cvt,frame =cap.read()
-            #capturr picture:
-            cv2.imwrite(path, frame, [cv2.IMWRITE_JPEG_QUALITY, 95])
-  
             start_time = time.time()
            
             #Detection: 
-            if (time.time()-sample_start)>=3:
+            if (time.time()-sample_start)>=1:
                 sample_start=time.time()
-                sample_result=color_detection(frame)        
+                sample_result=color_detection(frame)  
+                print(sample_result)      
                 ser.write(sample_result.encode('utf-8'))        #sent result to arduino
 
             
